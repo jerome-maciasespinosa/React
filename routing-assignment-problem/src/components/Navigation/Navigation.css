@@ -1,0 +1,27 @@
+#nav {
+    display:block;
+    height: 35px;
+    background-color: black;
+   
+}
+
+
+.ItemLink{
+    display: inline-block;
+    margin-top: 5pt;
+    
+}
+.ItemLink:hover{
+    opacity: 0.5;
+    color: white;
+    cursor: pointer;
+}
+
+
+.navLink {
+    color: grey;
+    text-decoration: none;
+}
+.IsActive{
+    color:white;
+}
