@@ -30,7 +30,8 @@ class App extends Component {
               <Route path="/users" component={Users} />   
               <Route path="/courses" component={Courses} />  
               <Route path="/all-courses" render={() => (<Redirect to="/courses" />)}  />
-              <Route render={() => <div>404 - Not Found</div>}  />
+              {/* <Route render={() => <div>404 - Not Found</div>}  /> */} {/* My rdirect solution */}
+              <Redirect from="/all-courses" to="/courses" /> {/* The course redirect solution */}
             </Switch>
           </Aux>
         </BrowserRouter>
