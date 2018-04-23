@@ -12,8 +12,8 @@ import React from 'react';
                 <div style={{width:'100%', margin:'auto'}}>
                     <Burger ingredients={props.ingredients} />
                 </div>
-                <Button btnType="Danger">CANCEL</Button>
-                <Button btnType="Success">CONTINUE</Button>
+                <Button clicked={props.checkoutCancelled} btnType="Danger">CANCEL</Button>
+                <Button clicked={props.checkoutContinued} btnType="Success">CONTINUE</Button>
             </div>
         );
     }
