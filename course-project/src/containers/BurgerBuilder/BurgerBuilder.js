@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import {connect} from 'react-redux';
-import * as burgerBuilderActions from './../../store/actions/index';
+import * as actions from './../../store/actions/index';
 
 import Aux from '../../hoc/_Aux/_Aux';
 import Burger from '../../components/Burger/Burger';
@@ -46,7 +46,12 @@ class BurgerBuilder extends Component{
     }
 
     purchasehandler = () => {
-        this.setState({purchasing: true});
+        if (this.props.isAuthenticated) {
+            this.setState({purchasing: true});
+        } else {
+            this.props.onSetAuthRedirectPath('/checkout');
+            this.props.history.push('/auth');
+        }
     }
 
     purchaseCancelHandler = () => {
@@ -54,6 +59,7 @@ class BurgerBuilder extends Component{
     }
 
     purchaseContinueHandler = () => {
+        this.props.onInitPurchase();
         this.props.history.push('/checkout');
     }
 
@@ -75,6 +81,7 @@ class BurgerBuilder extends Component{
                         <Burger ingredients={this.props.ings} />
                         <BuildControls 
                             ingrediendRemoved={this.props.onIngredientRemoved} 
+                            isAuth={this.props.isAuthenticated}
                             ingredientAdded={this.props.onIngredientAdded} 
                             disabled={disabledInfo}
                             price={this.props.price}
@@ -104,9 +111,11 @@ class BurgerBuilder extends Component{
 
 const mapDispatch = dispatch => {
     return {
-        onIngredientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
-        onIngredientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
-        onInitIngredient: () => dispatch(burgerBuilderActions.initIngredient())
+        onIngredientAdded: (ingName) => dispatch(actions.addIngredient(ingName)),
+        onIngredientRemoved: (ingName) => dispatch(actions.removeIngredient(ingName)),
+        onInitIngredient: () => dispatch(actions.initIngredient()),
+        onInitPurchase: () => dispatch(actions.purchaseInit()),
+        onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path))
     }
 }
 const mapStateToProps = (state) => {
@@ -114,7 +123,8 @@ const mapStateToProps = (state) => {
     return {
         ings: state.burgerBuilderR.ingredients,
         price: state.burgerBuilderR.totalPrice,
-        error: state.burgerBuilderR.error
+        error: state.burgerBuilderR.error,
+        isAuthenticated: state.authR.token !== null
     }
 }
 
