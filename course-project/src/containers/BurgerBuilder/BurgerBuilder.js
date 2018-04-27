@@ -119,7 +119,6 @@ const mapDispatch = dispatch => {
     }
 }
 const mapStateToProps = (state) => {
-    console.log('mapState', state.ingredients)
     return {
         ings: state.burgerBuilderR.ingredients,
         price: state.burgerBuilderR.totalPrice,

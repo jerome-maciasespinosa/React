@@ -4,7 +4,6 @@ import React from 'react';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 const burger = (props) => {
-    console.log(props);
     let transformedIngredients = Object.keys(props.ingredients) // Crée un array de key à partir de l'objet key value pair ingredients
     .map(igkey => {
         // console.log('array of key', Array(props.ingredients[igkey]));
