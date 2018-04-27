@@ -50,10 +50,11 @@ export const purchaseBurgerStart = () => {
 
 
 
-export const fetchOrdders = (token) => {  
+export const fetchOrdders = (token, userId) => {  
     return dispatch => { // Here get the second parameter getState is not recommended
         dispatch(fetchOrdersStart());
-        axios.get('/orders.json?auth=' + token)
+        const queryParams = '?auth='+token+'&orderBy="userId"&equalTo"'+userId+'"';
+        axios.get('/orders.json'+queryParams)
         .then(res => {
             const fetchedOrders = [];
             for (let key in res.data) {
