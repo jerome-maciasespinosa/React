@@ -42,6 +42,7 @@ class App extends Component {
         <Route path="/auth" component={asyncAuth} />
         <Route path="/logout" exact component={Logout} />
         <Route path="/" exact component={BurgerBuilder} />
+        <Redirect to="/" />
       </Switch>
     )}
     return (
